@@ -3,3 +3,14 @@ pandas
 scikit-learn
 matplotlib
 ipykernel
+pydantic
+python-dotenv
+langchain
+langchain_ollama
+langchain_community
+pypdf
+bs4
+arxiv
+pymupdf
+wikipedia
+langchain-text-splitters

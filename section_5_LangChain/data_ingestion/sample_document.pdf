@@ -1,0 +1,50 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /Helv 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Length 728 >>
+stream
+BT
+/Helv 11 Tf
+14 720 Td
+(Data Ingestion Sample Document) Tj T*
+() Tj T*
+(This PDF file was generated locally with pure Python for) Tj T*
+(the 'section_5_LangChain' data_ingestion exercise.) Tj T*
+() Tj T*
+(It exists only so that document loaders \(e.g. PyPDFLoader) Tj T*
+(from LangChain\) have a harmless, dependency-free PDF to) Tj T*
+(parse. It contains no scripts, no links, and no embedded) Tj T*
+(content other than the text you are reading right now.) Tj T*
+() Tj T*
+(Long ago there lived a quiet library by a quiet street,) Tj T*
+(and in it a man who read the same book every day, not) Tj T*
+(for the story, but for the reminder that some words) Tj T*
+(only gain meaning when you are patient enough to return.) Tj T*
+ET
+endstream
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000121 00000 n 
+0000000249 00000 n 
+0000000319 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+1098
+%%EOF

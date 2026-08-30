@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <book id="bk001">
+    <title>To the Lighthouse</title>
+    <author>Virginia Woolf</author>
+    <year>1927</year>
+    <genre>Modernist fiction</genre>
+    <price currency="USD">14.95</price>
+    <in_stock>true</in_stock>
+    <ratings>
+      <rating source="goodreads">4.3</rating>
+      <rating source="literary_league">4.7</rating>
+    </ratings>
+  </book>
+  <book id="bk002">
+    <title>The Left Hand of Darkness</title>
+    <author>Ursula K. Le Guin</author>
+    <year>1969</year>
+    <genre>Science fiction</genre>
+    <price currency="USD">16.50</price>
+    <in_stock>true</in_stock>
+    <ratings>
+      <rating source="goodreads">4.2</rating>
+      <rating source="literary_league">4.6</rating>
+    </ratings>
+  </book>
+  <book id="bk003">
+    <title>Pedro Paramo</title>
+    <author>Juan Rulfo</author>
+    <year>1955</year>
+    <genre>Magical realism</genre>
+    <price currency="USD">12.00</price>
+    <in_stock>false</in_stock>
+    <ratings>
+      <rating source="goodreads">4.4</rating>
+    </ratings>
+  </book>
+</catalog>
