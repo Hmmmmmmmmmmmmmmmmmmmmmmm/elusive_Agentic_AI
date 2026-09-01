@@ -2,4 +2,7 @@ venv
 ./venv
 .\venv
 .venv
-langchain
+
+.env
+/.env
+/home/vanitas/Python/git/elusive_Agentic_AI/.env
