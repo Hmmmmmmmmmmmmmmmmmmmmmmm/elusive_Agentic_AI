@@ -1,0 +1,257 @@
+SOURCE: Thoughtworks Blog - Four retrieval techniques to improve RAG you need to know
+AUTHOR: Richard Gall
+DATE: April 14, 2025
+URL: https://www.thoughtworks.com/en-us/insights/blog/generative-ai/four-retrieval-techniques-improve-rag
+
+Retrieval-augmented generation (RAG) is a key technique in improving the reliability and accuracy of generative AI. However, it does have some limitations, not least around context, cost and handling particularly large data sets.
+
+It's not surprising, then, that we've seen a range of different approaches emerge that attempt to address RAG's limitations over the last year or so. In the process of putting together the latest volume of the Thoughtworks Technology Radar (32) a number of techniques came up during our conversations. Some of them even appeared on the final version. As if that weren't enough, we also thought retrieval was so significant in today's technology landscape that we made it a theme, too.
+
+But let's take a deeper look at what's actually happening in retrieval-augmented generation in 2025. Although this list certainly isn't exhaustive, it does spotlight some key approaches and explore how they compare - and when they should be used.
+
+How RAG works - and its limitations
+
+Retrieval-augmented generation is a technique that augments LLMs by making it possible for the LLM to retrieve (as the name suggests) additional external information. External knowledge sources - documents or databases, for instance - are ingested and then chunked and then vectorized to create what are called vector embeddings. These are then stored somewhere - often a vector database, but not always - which can then be accessed by the system when a user inputs a prompt. This means the LLM has more accurate, up-to-date or contextual information.
+
+RAG is incredibly powerful but it does have a number of limitations. For instance, successful retrieval is only as effective as the data it retrieves. That means it requires well-organized, up-to-date data. But there are also challenges around complex queries, retrieving information from large data sets. In particular, RAG - sometimes called "naive RAG" - can either confuse similar meanings in a data set or lack the necessary nuance to retrieve information relevant to a given query.
+
+Corrective RAG
+
+Corrective RAG (CRAG) is one of the most popular new approaches to retrieval-augmented generation. The central idea behind it is the introduction of an evaluation step in the process through what's described as a "self-reflection" or "self-grading" mechanism. This is where the evaluator checks the accuracy of what it's retrieving; if what it retrieves doesn't hit a certain threshold, the system will look elsewhere. (This threshold is implemented through a lightweight retrieval evaluator, which calculates how relevant what's retrieved.) Sometimes this means returning to the data set or searching the web.
+
+What challenge does it tackle?
+Corrective RAG is a technique that tackles inaccurate retrievals. For instance, confusion about semantically similar information can sometimes happen in a RAG system; the introduction of an evaluation step is useful in bolstering the reliability of what's retrieved.
+
+What are the limitations of corrective RAG?
+Corrective RAG does have some limitations - that may affect whether it's the right option on your generative AI project. For instance, the introduction of the evaluation step inevitably impacts latency, as it requires additional computational resources. This could affect performance downstream (particularly important if it's supporting a live customer-facing application, for instance). It also adds complexity to your AI pipelines which can slow down team productivity and make it more difficult to correct issues if they arise.
+
+It's also important to note that corrective RAG can't, of course, correct issues in the data, whether it's inaccurate, out-of-date or just poorly organized and chunked.
+
+When should you use corrective RAG?
+Corrective RAG is a good option where you want to balance accuracy and real-time data integration.
+
+Self-RAG
+
+Self-RAG is closely related to corrective RAG. The "self" in its name refers to self-reflection, which, as we saw above, is a feature of corrective RAG.
+
+However, it goes further than evaluating each instance of retrieval by expanding self-reflection: first to the decision to actually retrieve additional data, and then actually learning from its evaluations in an iterative manner. It does this by using three models in training: a retriever, a critic and then a generator. This tripartite approach allows self-RAG to employ something called a "reflection token." As the team that developed self-RAG explain, "generating reflection tokens makes the LM [language model] controllable during the inference phase, enabling it to tailor its behavior to diverse task requirements."
+
+In short, self-RAG involves a kind of feedback loop in which the decisions it makes at the retrieval step reinforce the system's understanding. This ultimately improves its overall performance.
+
+What challenges does it tackle?
+Like corrective RAG, self-RAG can tackle accuracy challenges that we can sometimes encounter when using naive RAG. The iterative feature is also valuable insofar as it leads to improvements over time.
+
+What are the limitations of self-RAG?
+The limitations of self-RAG aren't dissimilar to corrective RAG. However, it has some additional issues. The self-reflection mechanism can, for instance, sometimes lead to outputs that aren't actually borne out in the data (the system essentially "overthinking").
+
+Implementing self-RAG also comes with some trade-offs. If tokens used for training are used for self-reflection, this may reduce the quality or fluency of the system's outputs. Ultimately, then, it's a question of what's most important to you and the nature of the data your AI system is dealing with.
+
+When should you use it?
+Self-RAG is particularly useful when you want an LLM to be adaptive. It's particularly useful for open-domain questions and sophisticated reasoning.
+
+RAG-fusion
+
+RAG-fusion is different to corrective RAG and self-RAG. While those approaches are oriented toward self-reflection, RAG-fusion is a technique in which retrieved sources of data (like, for instance, documents or entries in a wiki) are fused into a single batch. This is done through something called reciprocal rank fusion (RRF), which encompasses multiple steps, generating multiple queries from the original prompt which are then ranked.
+
+In effect, this expands what the model can retrieve, allowing it to grasp more context and nuance in the data.
+
+What challenges does it tackle?
+RAG-fusion can help tackle some of the problems RAG has with context and nuance. It will not only help the model supply more consistent and detailed responses to prompts, it also helps the model better manage difficult or multifaceted prompts.
+
+What are the limitations of RAG-fusion?
+RAG-fusion does add substantial complexity to your LLM architecture and pipelines (and, by extension, costs) - more than the two mentioned above. As with other techniques, it can cause performance problems downstream due to the additional steps that are implemented.
+
+When should you use RAG-fusion?
+RAG-fusion's ability to improve a model's ability to negotiate nuance and create more consistent outputs makes RAG-fusion a useful technique in fields like customer support. In fact, where the specificity and depth of outputs are particularly important, RAG-fusion is a good technique to use.
+
+Fast GraphRAG
+
+Fast GraphRAG is an open-source implementation of GraphRAG, a RAG technique built on knowledge graphs. GraphRAG works not by retrieving "chunks" of data, but instead by extracting data and placing it into a knowledge graph - making something that's a bit like a map of the data that can be retrieved. The benefit of such an approach is that it makes the connections between data visible and accessible to the LLM. This, in theory, means it can retrieve information with greater nuance and depth than it otherwise would.
+
+Fast GraphRAG builds on GraphRAG's core idea but introduces PageRank (the algorithm famously developed by Larry Page and Sergey Brin at Google) to help the system identify the most relevant information in the knowledge graph faster.
+
+What challenges does it solve?
+Fast GraphRAG solves a number of common challenges with RAG - the most obvious being around interpretation and nuance. The use of knowledge graphs in particular give the AI system a richer "understanding" of the retrieval data. As well as that, though, it's also better suited to larger data sets and can better adapt to dynamic data. While naive RAG - and some of the other techniques mentioned above - are designed with a relatively static data set in mind, Fast Graph RAG is designed to manage change in data as new information is added or as information becomes outdated.
+
+Fast GraphRAG is also a more cost efficient alternative to GraphRAG - potentially up to six times cheaper - while also being faster.
+
+What are the limitations?
+Despite the benefits of Fast GraphRAG, it's slower than other RAG techniques that depend on vector databases rather than knowledge graphs. Indeed, there's also additional complexity that means it might not be worth it for many use cases.
+
+When should you use Fast GraphRAG?
+Fast GraphRAG might sometimes be overkill, but if you're trying to tackle a particularly large data set or if accuracy is critical, then it is a very good option.
+
+What's next in RAG?
+
+The techniques discussed above aren't exhaustive. There are other approaches emerging as teams seek to tackle the trade-offs of working with LLMs.
+
+For instance, there's some work happening on multimodal RAG, which, as the name suggests, goes beyond just text data to incorporate images, charts and tables - even audio.
+
+There's also a more significant alternative to RAG being explored called cache-augmented generation. This is where the retrieval step is circumvented by preloading data into a model's context window from a cache - so it can be accessed faster and more easily. Cache-augmented generation isn't necessarily a technique that will improve accuracy and quality, but it can make the model more efficient.
+
+Pay attention: The RAG space is dynamic and evolving
+
+It should be clear by now that there's a lot happening in the world of RAG. While generative AI and LLMs are the terms that usually take the headlines, it's the experimentation and innovation happening in retrieval right now that's really shaping the effectiveness of AI-driven products.
+
+But it's important to be open-minded about the approach you take. It might be obvious, but there's no single "best" RAG technique - there's always a trade-off between complexity, speed and cost, for instance.
+
+What matters most is understanding what's important to your use case and then assessing the options thoroughly so you make an informed and effective decision.
+
+
+================================================================================
+SOURCE: Microsoft Cloud Blog - Common retrieval augmented generation (RAG) techniques explained
+AUTHOR: Olivia Shone, Senior Director, Product Marketing
+DATE: February 4, 2025
+URL: https://www.microsoft.com/en-us/microsoft-cloud/blog/2025/02/04/common-retrieval-augmented-generation-rag-techniques-explained
+
+Organizations use retrieval augmented generation (or RAG) to incorporate current, domain-specific data into language model-based applications without extensive fine-tuning.
+
+This article outlines and defines various practices used across the RAG pipeline - full-text search, vector search, chunking, hybrid search, query rewriting, and re-ranking.
+
+What is full-text search?
+
+Full-text search is the process of searching the entire document or dataset, rather than just indexing and searching specific fields or metadata. This type of search is typically used to retrieve the most relevant chunks of text from the underlying dataset or knowledge base. These retrieved chunks are then used to augment the input to the language model, providing context and information to improve the quality of the generated response.
+
+Full-text search is often combined with other search techniques, such as vector search or hybrid search, to leverage the strengths of multiple approaches.
+
+The purpose of full-text search is to:
+- Allow the retrieval of relevant data from the complete textual content of a document or dataset.
+- Enable the identification of documents that may contain the answer or relevant information, even if the specific query terms are not present in the metadata or document titles.
+
+The process of implementing a full-text search involves the following techniques:
+- Indexing - the full text of documents or dataset is indexed, often using inverted index structures that store and organize information that helps improve the speed and efficiency of search queries and retrieved results.
+- Querying - when a user query is received, the full text of the documents or dataset is searched to find the most relevant information.
+- Ranking - the retrieved documents or chunks are ranked based on relevance to the query, using techniques like term frequency inverse document frequency (TF-IDF) or BM25.
+
+What is vector search?
+
+Vector search retrieves stored matching information based on conceptual similarity, or the underlying meaning of sentences, rather than exact keyword matches. In vector search, machine learning models generate numeric representations of data, including text and images. Because the content is numeric rather than plain text, matching is based on vectors that are most similar to the query vector, enabling search matching for:
+- Semantic or conceptual likeness ("dog" and "canine," conceptually similar yet linguistically distinct).
+- Multilingual content ("dog" in English and "hund" in German).
+- Multiple content types ("dog" in plain text and a photograph of a dog in an image file).
+
+With the rise of generative AI applications, vector search and vector databases have seen a dramatic rise in adoption, along with the increased number of applications using dialogue interactions and question/answer formats. Embeddings are a specific type of vector representation created by natural language machine learning models trained to identify patterns and relationships between words.
+
+There are three steps in processing vector search:
+- Encoding - use language models to transform or convert text chunks into high-dimensional vectors or embeddings.
+- Indexing - store these vectors in a specialized database optimized for vector operations.
+- Querying - convert user queries into vectors using the same encoding method to retrieve semantically similar content.
+
+Things to consider when implementing vector search:
+- Selecting the right embedding model for your specific use case, like GPT or BERT.
+- Balancing index size, search speed, and accuracy.
+- Keeping vector representations up to date as the source data changes.
+
+What is chunking?
+
+Chunking is the process of dividing large documents and text files into smaller parts to stay under the maximum token input limits for embedding models. Partitioning your content into chunks ensures that your data can be processed by the embedding models and that you don't lose information due to truncation.
+
+For example, the maximum length of input text for the Azure OpenAI Service text-embedding-ada-002 model is 8,191 tokens. Given that each token is around four characters of text for common OpenAI models, this maximum limit is equivalent to around 6,000 words of text. If you're using these models to generate embeddings, it's critical that the input text stays below the limit.
+
+Documents are divided into smaller segments, depending on:
+- Number of tokens or characters.
+- Structure-aware segments, like paragraphs and sections.
+- Overlapping windows of text.
+
+When implementing chunking, it's important to consider these factors:
+- Shape and density of your documents. If you need intact text or passages, larger chunks and variable chunking that preserves sentence structure can produce better results.
+- User queries. Larger chunks and overlapping strategies help preserve context and semantic richness for queries that target specific information.
+- Large language models (LLMs) have performance guidelines for chunk size. You need to set a chunk size that works best for all of the models you're using. For instance, if you use models for summarization and embeddings, choose an optimal chunk size that works for both.
+
+What is hybrid search?
+
+Hybrid search combines keyword search and vector search results and fuses them together using a scoring algorithm. A common model is reciprocal rank fusion (RRF). When two or more queries are executed in parallel, RRF evaluates the search scores to produce a unified result set.
+
+For generative AI applications and scenarios, hybrid search often refers to the ability to search both full text and vector data.
+
+The process of hybrid search involves:
+- Transforming the query into a vector format.
+- Performing vector search to find semantically similar chunks.
+- Simultaneously conducting keyword search on the same corpus.
+- Combining and ranking results from both methods.
+
+When implementing hybrid search, consider the following:
+- Balancing the influence of each search method.
+- Increased computational complexity compared to single-method search.
+- Tuning the system to work well across diverse types of queries and content.
+- Overlapping keywords to match when using question and answering systems, like ChatGPT.
+
+What is query rewriting?
+
+Query rewriting is an important technique used in RAG to enhance the quality and relevance of the information retrieved by modifying and augmenting a provided user query. Query rewriting creates variations of the same query that are shared with the retriever simultaneously, alongside the original query. This helps remediate poorly phrased questions and casts a broader net for the type of knowledge collected for a single query.
+
+In RAG systems, rewriting helps improve recall, better capturing user intent. It's performed during pre-retrieval, before the information retrieval step in a RAG scenario.
+
+Query rewriting can be approached in three ways:
+- Rules-based - using predefined rules and patterns to modify the query.
+- Machine learning-based - training models to learn how to transform queries based on examples.
+- Mixed - combining rules-based and machine learning-based techniques.
+
+What is re-ranking?
+
+Re-ranking, or L2 ranking, uses the context or semantic meaning of a query to compute a new relevance score over pre-ranked results. Post retrieval, a retrieval system passes search results to a ranking machine-learning model that scores the documents (or textual chunks) by relevance. Then, the top results of a limited, defined number of documents (top 50, top 10, top 3) are shared with the LLM.
+
+RAG systems employ various techniques to enhance knowledge retrieval and improve the quality of generated responses. These techniques work to provide language models with highly relevant context to generate accurate and informative responses.
+
+To get started, use the following resources to start building a RAG application with Azure AI Foundry and use them with agents built using Microsoft Copilot Studio.
+
+Our commitment to Trustworthy AI
+
+Organizations across industries are leveraging Azure AI Foundry and Microsoft Copilot Studio capabilities to drive growth, increase productivity, and create value-added experiences.
+
+We're committed to helping organizations use and build AI that is trustworthy, meaning it is secure, private, and safe. We bring best practices and learnings from decades of researching and building AI products at scale to provide industry-leading commitments and capabilities that span our three pillars of security, privacy, and safety. Trustworthy AI is only possible when you combine our commitments, such as our Secure Future Initiative and our Responsible AI principles, with our product capabilities to unlock AI transformation with confidence.
+
+Azure remains steadfast in its commitment to Trustworthy AI, with security, privacy, and safety as priorities. Check out the 2024 Responsible AI Transparency Report.
+
+
+================================================================================
+SOURCE: StackAI Blog - Retrieval-Augmented Generation (RAG) Explained (2026)
+AUTHOR: Jenny Liang, AI Strategist at StackAI
+DATE: June 17, 2025 (updated Sep 11, 2026)
+URL: https://www.stackai.com/blog/retrieval-augmented-generation-%28rag%29-explained
+
+Large language models unlocked modern AI agents, yet they rely on static training data. When that data ages, answers drift. Retrieval-Augmented Generation (RAG) solves the drift by letting a model pull fresh, domain-specific facts at inference time.
+
+In this blog, we'll explain RAG and show you how to implement it.
+
+Techniques to improve LLMs
+
+There are four ways to improve LLMs: zero-shot prompting, few-shot prompting, RAG, and fine tuning.
+- Zero-Shot Prompting is simply describing the task to LLM without examples in the prompt.
+- Few-Shot Prompting improves on zero-shot by including a handful of examples in the prompt.
+- Retrieval-Augmented Generation (RAG) combines retrieval from external knowledge sources with language model generation.
+- Fine-Tuning retrains a LLM further on a task-specific dataset.
+
+A study below shows model accuracy improves as technique complexity increases. Big base models (e.g. GPT models) consistently achieve higher performance increase at each stage when compared with small base models (e.g. Mistral-7B).
+
+So, why is RAG so special?
+
+Benefits of RAG
+
+RAG offers three advantages over the other techniques when it comes to enterprise applications:
+- RAG is faster to deploy than fine-tuning. Fine-tuning requires large volume of labeled data, significant compute resources, and ongoing maintenance.
+- RAG is easier to maintain than fine-tuning. RAG decouples knowledge from the model parameters, so teams can update the retrieval layer independently without re-training the entire model.
+- RAG systems can cite sources and snippets to build trust in the model's responses. The ability to verify output information is critical for use cases including customer support, legal research, or healthcare.
+
+The Architecture of RAG
+
+RAG has two steps: retrieving information and generating response.
+
+There are five components in a typical RAG architecture:
+1. External Documents: Company documents, such as financial data, contracts, customer contacts, are transformed from their original form into embeddings. Embeddings are numerical representations (i.e. vectors) that capture semantic meanings of texts, images, and videos. These vectors allow for efficient similarity comparison between texts, therefore enabling fast search across documents to find the relevant piece.
+2. Embedding Store: The embedding store is a vector database, which simply means a database that contains the embedding vectors. These vectors are organized into a structure that is optimized for semantic search, and they are also chunked into smaller, manageable pieces for LLMs to process later.
+3. Retriever: A retriever is a function created to accept the user message.
+4. Querying: The retriever initiates the search for external documents, and the embedding store returns chunks of relevant information.
+5. Context: The relevant information is incorporated into the LLM context window. The context window now contains user messages (i.e. prompt), retrieved information, and the rest of the conversation.
+
+With this architecture, RAG addresses LLM's limitation and informs problem solving.
+
+Implement RAG with Knowledge Base
+
+At Stack AI, we serve customers in healthcare, operations, education, and finance by building AI agents with RAG. All components of the RAG architecture are neatly packaged into the Knowledge Base in our platform.
+
+External documents can be uploaded into a central cloud storage or individual projects.
+
+Our proprietary RAG engine runs in the backend while providing flexibilities in embedding and chunking to end users.
+
+To get started, check out How to Build a Knowledge Base AI Agent for a step-by-step guide.
